@@ -5,6 +5,7 @@
     const fs = require('fs');
 
     console.log(`----- init the connection and config-----\n`);
+    AWS.config.update({region: 'us-west-1'});
     const dynamoDB = new AWS.DynamoDB({ maxRetries: 0 });
     const dynamoDBWrapper = new DynamoDBWrapper(dynamoDB, {
         // optionally enable DynamoDBWrapper retry logic

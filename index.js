@@ -3,6 +3,7 @@
     const DynamoDBWrapper = require('dynamodb-wrapper');
     const AttributeValue = require('dynamodb-data-types').AttributeValue;
     const fs = require('fs');
+    const pickle = require('pickle');
 
     console.log(`----- init the connection and config-----\n`);
     AWS.config.update({region: 'us-west-1'});
@@ -24,9 +25,16 @@
     let i = 1;
     for (const wrappedItem of allIdps.Items) {
         const idp = AttributeValue.unwrap(wrappedItem);
-        console.log(i + ":" + JSON.stringify(idp));
         i++;
-        fs.appendFileSync('./idp_enterprise.json', idp.enterprise + "\n");
+        if (idp.idp) {
+        	pickle.loads(idp.idp, function(orgIdp) {
+    			console.log( i + " info: ", orgIdp.groupUUID);
+  			});
+        }
+        //console.log(i + ":" + JSON.stringify(idp.enterprise));
+        
+        //fs.appendFileSync('./data/idp_enterprise.json', idp.enterprise + "\n");
+        //fs.appendFileSync('./data/idp_pickle.json', idp.idp + "\n");
     }
 
 	console.log(`----- target table scan finished --------\n`);

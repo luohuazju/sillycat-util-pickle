@@ -33,10 +33,8 @@
             	});
             });
             console.log(i + ":" + JSON.stringify(orgIdp.groupUUID));
+            fs.appendFileSync('./data/idp_info.json', JSON.stringify(orgIdp) + "\n");
         }
-        
-        //fs.appendFileSync('./data/idp_enterprise.json', idp.enterprise + "\n");
-        //fs.appendFileSync('./data/idp_pickle.json', idp.idp + "\n");
     }
 
 	console.log(`----- target table scan finished --------\n`);

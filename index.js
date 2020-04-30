@@ -27,11 +27,13 @@
         const idp = AttributeValue.unwrap(wrappedItem);
         i++;
         if (idp.idp) {
-        	pickle.loads(idp.idp, function(orgIdp) {
-    			console.log( i + " info: ", orgIdp.groupUUID);
-  			});
+        	const orgIdp = await new Promise((resolve, reject) => {
+	            pickle.loads(idp.idp, (res, err) => {
+	              return void err ? reject(err) : resolve(res)
+            	});
+            });
+            console.log(i + ":" + JSON.stringify(orgIdp.groupUUID));
         }
-        //console.log(i + ":" + JSON.stringify(idp.enterprise));
         
         //fs.appendFileSync('./data/idp_enterprise.json', idp.enterprise + "\n");
         //fs.appendFileSync('./data/idp_pickle.json', idp.idp + "\n");

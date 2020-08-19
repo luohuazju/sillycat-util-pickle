@@ -3,7 +3,8 @@
     const DynamoDBWrapper = require('dynamodb-wrapper');
     const AttributeValue = require('dynamodb-data-types').AttributeValue;
     const fs = require('fs');
-    const pickle = require('pickle');
+    const jpickle = require('jpickle');
+    const flatten = require('flat');
 
     console.log(`----- init the connection and config-----\n`);
     AWS.config.update({region: 'us-west-1'});
@@ -27,13 +28,10 @@
         const idp = AttributeValue.unwrap(wrappedItem);
         i++;
         if (idp.idp) {
-        	const orgIdp = await new Promise((resolve, reject) => {
-	            pickle.loads(idp.idp, (res, err) => {
-	              return void err ? reject(err) : resolve(res)
-            	});
-            });
-            console.log(i + ":" + JSON.stringify(orgIdp.groupUUID));
-            fs.appendFileSync('./data/idp_info.json', JSON.stringify(orgIdp) + "\n");
+        	const orgIdp = jpickle.loads(idp.idp)
+            const flatOrgIdp = flatten(orgIdp);
+            console.log(i + ":" + JSON.stringify(flatOrgIdp.groupUUID));
+            fs.appendFileSync('./data/idp_info.json', JSON.stringify(flatOrgIdp) + "\n");
         }
     }
 

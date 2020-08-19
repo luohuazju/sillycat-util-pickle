@@ -21,7 +21,9 @@
     "aws-sdk": "^2.666.0",
     "dynamodb-data-types": "^3.0.1",
     "dynamodb-wrapper": "^1.4.1",
-    "pickle": "^0.2.0"
+    "pickle": "^0.2.0",
+    "flat": "^5.0.2",
+    "jpickle": "^0.4.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

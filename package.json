@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/luohuazju/sillycat-util-pickle#readme",
   "dependencies": {
-    "aws-sdk": "^2.666.0",
+    "aws-sdk": "^2.814.0",
     "dynamodb-data-types": "^3.0.1",
     "dynamodb-wrapper": "^1.4.1",
     "pickle": "^0.2.0",
